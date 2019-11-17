@@ -1,23 +1,18 @@
 import argparse
 import os
 import pandas as pd
-import numpy as np
-from azureml.core import Run
 from blob_service import BlobService
-import math
-from collections import defaultdict
-from collections import Counter
 import time
+from BehavioralAnalysis.run import execute
 
 MKL_NUM_THREADS=1
 OPENBLAS_NUM_THREADS=1
 EVENTS_FILE = "raw_events_08_01.csv"
 STATIONS_FILE = "stations_with_labels.csv"
-OUTPUT_FILE = "TagsAssignment.csv"
+OUTPUT_FILE = "export_08_01.csv"
 
 def compute_tags_assignments(stations, events):
-
-    return pd.DataFrame({"A": [1,2], "B": [2,3]})
+    return execute(stations, events)
 
 def main():
     parser = argparse.ArgumentParser("train")
@@ -64,6 +59,7 @@ def main():
     blob_service_ref.store_blob(output_temp_path, os.path.join(time.strftime("%Y-%m-%d"), OUTPUT_FILE))
 
     print("Completed!")
+    
     
 if __name__ == "__main__":
     main()

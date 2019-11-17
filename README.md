@@ -9,6 +9,6 @@ Data is retrieved from MyHelsinki Open API (https://hri.fi/data/en_GB/dataset/my
 + Open Data Analysis.ipynb - generic available data analysis and feature engineering
 + Stations Tags Assignment & Speed & Social Features Engineering.ipynb - assignment of tags like is_road_nearby, is_recreation_zone and other to tracking stations (it is planned to assign this tags using Maps API in future). Also, people moving speed and transport are devised as well as their social circle.
 + Behvioral analysis pipeline.ipynb & BehavioralAnalysis folder - contain Azure Machine Learning service based pipeline implementation which:
-  1) daily accepts raw data (retrieved from Azure Blob Storage) from bluetooth trackers
+  1) hourly accepts raw data (retrieved from Azure Blob Storage) from bluetooth trackers
   2) Based on today's day and historical person's behavior devises tags
   3) Stores tags with users

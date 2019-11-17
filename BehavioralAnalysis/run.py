@@ -2,43 +2,8 @@ import requests
 import pandas as pd
 import json
 
-import requests
-import pandas as pd
-import json
+def execute(bluetooh_radar_data, df_all):
 
-from azure.storage.common import CloudStorageAccount
-
-
-class BlobService:
-    def __init__(self, account_name='hackingjunctio1306266651', account_key='g+l+25uAtl5BUjmKGOdOMlVevu4cStb830jYl27rabAlCAEBZc0inP0tfgC4YaBCBCxAJhcIofZ9C+rYRnTXbQ=='):
-        account = CloudStorageAccount(account_name, account_key)
-        self.blob_service_ref = account.create_block_blob_service()
-
-    def store_blob(self, container_name, source_path, destination_path):
-        self.blob_service_ref.create_blob_from_path(
-            container_name,
-            destination_path,
-            source_path
-        )
-
-    def get_blob(self, container_name, source_path, destination_path):
-        self.blob_service_ref.get_blob_to_path(
-            container_name,
-            source_path,
-            destination_path
-        )
-
-    def blob_exist(self, container_name, blobl_path):
-        return self.blob_service_ref.exists(container_name, blobl_path)
-
-def execute():
-    blob = BlobService()
-    print('Data Downloading started')
-    #blob.get_blob('inputs', 'stations_with_labels.csv', './stations_with_labels.csv')
-    #blob.get_blob('inputs', 'raw_events_08_01.csv', './raw_events_08_01.csv')
-    print('Data Downloaded')
-    df_all = pd.read_csv('raw_events_08_01.csv')
-    df_all.reset_index(drop=True).to_csv('raw_events_08_01.csv')
     df_all['time'] = pd.to_datetime(df_all['time'])
     df_all['time'] = df_all['time'].apply(lambda x: x.tz_convert('Europe/Helsinki'))
 
@@ -46,8 +11,6 @@ def execute():
     df['hour_time'] = df['time'].apply(lambda x: x.hour)
     df = df.reset_index(drop=True)
 
-    df.groupby('hour_time').count()['time'].plot.bar()
-    bluetooh_radar_data = pd.read_csv('stations_with_labels.csv')
     transportation_areas = bluetooh_radar_data[bluetooh_radar_data['is_transportation_node'] == True]
     recreational_areas = bluetooh_radar_data[bluetooh_radar_data['is_recreation_zone'] == True]
 

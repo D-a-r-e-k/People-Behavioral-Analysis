@@ -3,7 +3,7 @@ import os
 import pandas as pd
 from blob_service import BlobService
 import time
-from BehavioralAnalysis.run import execute
+from run import execute
 
 MKL_NUM_THREADS=1
 OPENBLAS_NUM_THREADS=1
@@ -55,10 +55,10 @@ def main():
     tags_assignments.to_csv(output_temp_path, index=False)
 
     blob_service_ref = BlobService(args.input_account, args.input_key, args.output_container)
-    #blob_service_ref.store_blob(output_temp_path, os.path.join(OUTPUT_FILE))
+    blob_service_ref.store_blob(output_temp_path, os.path.join(OUTPUT_FILE))
     blob_service_ref.store_blob(output_temp_path, os.path.join(time.strftime("%Y-%m-%d"), OUTPUT_FILE))
 
-    print("Completed!")
+    print("Completed.")
     
     
 if __name__ == "__main__":

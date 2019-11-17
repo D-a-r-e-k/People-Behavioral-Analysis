@@ -21,3 +21,6 @@ class BlobService:
             source_path,
             destination_path
         )
+    
+    def blob_exist(self, container_name, blobl_path):
+        return self.blob_service_ref.exists(container_name, blobl_path)
